@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         version: ["stable", "develop", "v2.5.0"]
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
