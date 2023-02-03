@@ -11,6 +11,7 @@ WORKDIR /app
 RUN git clone --filter=blob:none --no-checkout ${PLEROMA_REPO} . \
   && git checkout ${PLEROMA_VERSION}
 
+ENV OAUTH_CONSUMER_STRATEGIES=keycloak:ueberauth_keycloak_strategy
 
 RUN echo "import Mix.Config" > config/prod.secret.exs \
   && mix local.hex --force \
