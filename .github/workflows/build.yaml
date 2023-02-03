@@ -8,7 +8,7 @@ on:
       - Dockerfile
       - start.sh
       - cli.sh
-    branches: main
+    branches: [main]
 
 jobs:
   build:
@@ -30,15 +30,15 @@ jobs:
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
         with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.super.fish
+          username: robot$pleroma+ci
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ghcr.io/explodingcamera/pleroma
+          images: docker.super.fish/pleroma/pleroma
 
       - name: Build and push
         uses: docker/build-push-action@v3
@@ -48,5 +48,5 @@ jobs:
             PLEROMA_VERSION=${{ matrix.version }}
           context: .
           file: ./Dockerfile
-          tags: ghcr.io/explodingcamera/pleroma:${{ matrix.version }}
+          tags: docker.super.fish/pleroma/pleroma:${{ matrix.version }}
           labels: ${{ steps.meta.outputs.labels }}
